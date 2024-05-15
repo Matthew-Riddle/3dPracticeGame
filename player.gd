@@ -4,7 +4,7 @@ extends CharacterBody3D
 const SPEED = 15.0
 const JUMP_VELOCITY = 10
 const LOOKAROUND_SPEED = .008
-var push_force = .7
+var push_force = 1.7
 #var basis = Basis()
 var rot_x = 0
 var rot_y = 0
@@ -44,5 +44,4 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody3D:
-			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
-	
+			c.get_collider().apply_central_force(-c.get_normal() * push_force)

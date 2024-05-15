@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://1m6j7uva7rbw"]
+[gd_scene load_steps=5 format=3 uid="uid://1m6j7uva7rbw"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8vvcs"]
+[ext_resource type="Script" path="res://PlayerSpatial.gd" id="2_v2vug"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ttkdj"]
 
@@ -14,3 +15,9 @@ mesh = SubResource("BoxMesh_ttkdj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_opdvw")
+
+[node name="PlayerSpatial" type="Node3D" parent="."]
+script = ExtResource("2_v2vug")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerSpatial"]
+current = true
