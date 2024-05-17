@@ -7,9 +7,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_72thk"]
 
 [node name="Block" type="RigidBody3D"]
-mass = 0.05
+mass = 0.64
 physics_material_override = SubResource("PhysicsMaterial_4oo48")
-constant_force = Vector3(0, -1, 0)
+gravity_scale = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_3341r")

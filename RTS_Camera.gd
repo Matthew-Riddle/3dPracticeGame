@@ -28,10 +28,13 @@ var camera_can_automatic_pan:bool = true
 var camera_can_rotate:bool = true
 
 # Nodes
-@onready var camera_base:Node3D = $CameraSocket.get_parent_node_3d()
+@onready var camera_base:Node3D = self
 @onready var camera_socket:Node3D = $CameraSocket
 @onready var camera:Camera3D = $CameraSocket/Camera3D
 @onready var window:Window = get_window()
+
+# Variables
+@onready var viewport_current:Viewport = get_viewport()
 
 func _ready() -> void:
 	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
@@ -82,7 +85,6 @@ func camera_zoom_update(delta:float) -> void:
 func camera_automatic_pan(delta:float) -> void:
 	if !camera_can_automatic_pan:return
 	
-	var viewport_current:Viewport = get_viewport()
 	var pan_direction:Vector2 = Vector2(-1,-1) # Starts negative
 	var viewport_visible_rectangle:Rect2i = Rect2i( viewport_current.get_visible_rect() )
 	var viewport_size:Vector2i = viewport_visible_rectangle.size
@@ -105,19 +107,17 @@ func camera_automatic_pan(delta:float) -> void:
 
 func camera_rotate(delta:float) -> void:
 	if !camera_can_rotate:return
-	#var current_camera_rotation:Vector3 = camera_socket.rotation
-	#var viewport_current:Viewport = get_viewport()
-	#var viewport_visible_rectangle:Rect2i = Rect2i( viewport_current.get_visible_rect() )
-	#var camera_rotation = viewport_current.get_mouse_position().normalized()
-	#var viewport_size:Vector2i = viewport_visible_rectangle.size
-	#if (viewport_current.get_mouse_position().x > viewport_size.x/2):
-		#camera_rotate_direction = 1
-	#else:
-		#camera_rotate_direction = -1
-	#if (Input.is_action_pressed("ui_rotate")):
-		#camera_base.rotate_y( camera_rotate_direction * camera_rotate_speed * delta )
-		#print(camera_rotate_direction)
 
 func fullscreen() -> void:
 	if ( Input.is_action_just_pressed("ui_fullscreen") ):
 		window.set_mode( Window.MODE_FULLSCREEN )
+
+func _notification(flag) -> void:
+	if flag == NOTIFICATION_WM_MOUSE_ENTER:
+		camera_can_automatic_pan = true
+	elif flag == NOTIFICATION_WM_MOUSE_EXIT:
+		camera_can_automatic_pan = false
+
+func draw_selection() -> void:
+	RectangleShape2D
+	pass
