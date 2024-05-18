@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cefpm5wqvbn1w"]
+
+[ext_resource type="Script" path="res://scripts/RTS_Camera.gd" id="1_xuikp"]
+
+[node name="CameraBase" type="Node3D"]
+script = ExtResource("1_xuikp")
+
+[node name="CameraSocket" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraSocket"]
+current = true
