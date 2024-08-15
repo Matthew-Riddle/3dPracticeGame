@@ -24,8 +24,9 @@ var rot_x = 0
 var camera_can_process:bool = true
 var camera_can_move_base:bool = true
 var camera_can_zoom:bool = true
-var camera_can_automatic_pan:bool = true
+var camera_can_automatic_pan:bool = false
 var camera_can_rotate:bool = true
+@export var active_script = true
 
 # Nodes
 @onready var camera_base:Node3D = self
@@ -42,6 +43,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
+	if active_script == false:
+		return
 	if !camera_can_process:return
 	camera_base_move(delta)
 	camera_zoom_update(delta)
@@ -50,6 +53,8 @@ func _process(delta) -> void:
 	fullscreen()
 
 func _unhandled_input(event:InputEvent) -> void:
+	if active_script == false:
+		return
 	# Camera Zoom
 	if event.is_action("camera_zoom_in"):
 		camera_zoom_direction = -1
@@ -112,12 +117,13 @@ func fullscreen() -> void:
 	if ( Input.is_action_just_pressed("ui_fullscreen") ):
 		window.set_mode( Window.MODE_FULLSCREEN )
 
-func _notification(flag) -> void:
-	if flag == NOTIFICATION_WM_MOUSE_ENTER:
-		camera_can_automatic_pan = true
-	elif flag == NOTIFICATION_WM_MOUSE_EXIT:
-		camera_can_automatic_pan = false
+#Disabled for active work. Turn back on later
+#func _notification(flag) -> void:
+	#if flag == NOTIFICATION_WM_MOUSE_ENTER:
+		#camera_can_automatic_pan = true
+	#elif flag == NOTIFICATION_WM_MOUSE_EXIT:
+		#camera_can_automatic_pan = false
 
-func draw_selection() -> void:
-	RectangleShape2D
-	pass
+# Unproject Vector3 to Vector2. Used for select box
+func get_Vector2_from_Vector3(unproject_from_vec3:Vector3) -> Vector2:
+	return camera.unproject_position(unproject_from_vec3)

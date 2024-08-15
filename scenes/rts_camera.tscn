@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cefpm5wqvbn1w"]
+[gd_scene load_steps=3 format=3 uid="uid://cefpm5wqvbn1w"]
 
 [ext_resource type="Script" path="res://scripts/RTS_Camera.gd" id="1_xuikp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6w1g"]
+size = Vector3(60, 1, 60)
 
 [node name="CameraBase" type="Node3D"]
 script = ExtResource("1_xuikp")
@@ -10,3 +13,10 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraSocket"]
 current = true
+
+[node name="VisibleUnitsArea3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15)
+priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisibleUnitsArea3D"]
+shape = SubResource("BoxShape3D_o6w1g")

@@ -5,6 +5,7 @@ const SPEED = 15.0
 const JUMP_VELOCITY = 10
 const LOOKAROUND_SPEED = .008
 var push_force = 1.7
+@export var active_script = false
 #var basis = Basis()
 var rot_x = 0
 var rot_y = 0
@@ -13,6 +14,8 @@ var rot_y = 0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _input(event):
+	if active_script == false:
+		return
 	if event is InputEventMouseMotion and Input.is_action_pressed("ui_rotate"):
 		rot_x -= event.relative.x * LOOKAROUND_SPEED
 		#rot_y -= event.relative.y * LOOKAROUND_SPEED
@@ -21,6 +24,8 @@ func _input(event):
 		#rotate_object_local(Vector3(1, 0, 0), rot_y)
 
 func _physics_process(delta):
+	if active_script == false:
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

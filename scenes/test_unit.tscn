@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://mgtn370gi05w"]
+
+[ext_resource type="Script" path="res://scripts/test_unit.gd" id="1_wqdw0"]
+[ext_resource type="Texture2D" uid="uid://dgug10fst64o2" path="res://images/ui_select_dragbox01.png" id="2_7n2gi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lp3ty"]
+resource_local_to_scene = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_77f02"]
+resource_local_to_scene = true
+
+[node name="TestUnit" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_wqdw0")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_lp3ty")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("CapsuleMesh_77f02")
+
+[node name="selected" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+modulate = Color(0, 1, 1, 0.501961)
+pixel_size = 0.1
+axis = 1
+texture = ExtResource("2_7n2gi")
